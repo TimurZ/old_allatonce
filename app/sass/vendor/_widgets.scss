@@ -1,0 +1,418 @@
+/*  
+	--- WIDGETS CONTAINS --- 
+	
+	Multiselect
+	Scrollpane
+		
+*/
+
+/*----------- MULTISELECT -----------*/
+/* core */
+.ui-multiselect { text-align:left; }
+.ui-multiselect,
+.ui-multiselect *:hover,
+.ui-multiselect *:focus { outline:none !important; }
+button.ui-multiselect::-moz-focus-inner {
+	padding:0;
+	border:0;
+}
+button.ui-multiselect {
+	display:block;
+	cursor:pointer;
+	background:none !important;
+	border:0 !important;
+	padding:0 !important;
+	height:auto !important;
+	width:100% !important;
+	color:transparent;
+	position:relative;
+	overflow:visible;
+}
+button.ui-multiselect:after {	content:""; }
+button.ui-multiselect .ui-multiselect-inner {
+	display:block;
+	position:relative;
+	overflow:hidden;
+}
+button.ui-multiselect.ui-state-disabled,
+button.ui-multiselect.ui-state-disabled * { cursor:default !important; }
+button.ui-multiselect .ui-multiselect-value {
+	display:block;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	max-width:100%;
+}
+button.ui-multiselect .ui-multiselect-divider {
+	position:absolute;
+	width:0;
+}
+button.ui-multiselect .ui-multiselect-arrow {
+	position:absolute;
+	border-left: 3px solid transparent;
+	border-right: 3px solid transparent;
+	border-top: 6px solid $red-darken;
+	top: 7px;
+	right: 8px;
+}
+button.ui-multiselect .ui-multiselect-icon {
+	position:absolute;
+}
+.ui-multiselect-single .ui-multiselect-checkboxes input {
+	position:absolute !important;
+	top:auto !important;
+	left:-9999px;
+}
+.ui-multiselect-header li.ui-multiselect-close {
+	text-align:right;
+}
+.ui-multiselect-menu {
+	display:none;
+	position:absolute;
+	z-index:10000;
+	text-align:left;
+	left:0;
+	top:0;
+}
+.ui-multiselect-checkboxes {
+	position:relative /* fixes bug in IE6/7 */;
+	overflow-y:auto;
+}
+.ui-multiselect-checkboxes label {
+	display:block;
+	border:none;
+}
+.ui-multiselect-checkboxes label input {
+	position:relative;
+}
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label {
+	text-align:center;
+}
+.ui-multiselect-checkboxes li.ui-multiselect-optgroup-label a {
+	display:block;
+	text-decoration:none;
+}
+
+/* core filter */
+.ui-multiselect-hasfilter ul {
+	position:relative;
+}
+.ui-multiselect-filter input {
+	width:100px;
+	-webkit-appearance:textfield;
+	-webkit-box-sizing:content-box;
+}
+div.ui-multiselect-menu ul,
+div.ui-multiselect-menu li {
+	background:none;
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+div.ui-multiselect-menu ul {
+	max-height:300px;
+	overflow:visible;
+}
+div.ui-multiselect-menu .ui-multiselect-checkboxes li:first-child {
+	display:none !important;
+}
+div.ui-multiselect-menu li {
+	overflow:hidden;
+}
+div.ui-multiselect-menu ul label {
+	cursor:pointer;
+	position:relative;
+}
+.list-fix-scroll {
+	overflow-y:auto !important;
+}
+/* core end */
+
+/* custom style */
+/* button style */
+button.select .ui-multiselect-inner {
+	padding-right:20px !important;
+	height:24px;
+}
+button.select .ui-multiselect-inner,
+div.select .ui-multiselect-menu-inner {
+	border: 2px solid #ededed;
+	background:#fff;
+}
+// button.select.ui-state-active .ui-multiselect-inner,
+div.select .ui-multiselect-menu-inner {
+	border-width: 1px;
+	border-color: #ededed;
+	box-shadow:0 0 3px rgba(0,0,0,0.25);
+}
+button.select.ui-state-active .ui-multiselect-arrow {
+	transform: rotate(180deg);
+}
+button.select .ui-multiselect-inner, 
+div.select ul label {
+	// font: normal normal 14px/16px Arial;
+	font: 13px/1.2 $rb;
+	font-weight: 300;
+	color:#000;
+	padding:2px 8px 2px;
+}
+button.select.ui-state-placeholder .ui-multiselect-inner {
+	color: #ccc;
+}
+
+// search-select
+.search-select.select.ui-state-placeholder .ui-multiselect-inner {
+	color: #ffcccf;
+	letter-spacing: -0.3px;
+}
+
+.search-select.select .ui-multiselect-inner {
+	color: #fff;
+}
+
+.search-select.select .ui-multiselect-inner {
+	font: 11px/1.2 $rb;
+	font-weight: 400;
+	padding: 9px 20px 7px 8px !important;
+	background: none;
+	border: none;
+
+	// &:hover {
+	// 	background: #cc2934;
+	// }
+}
+
+.search-select.select .ui-multiselect-menu-inner {
+	border-radius: 0 0 4px 4px;
+	border-color: $pink;
+	overflow: hidden;
+}
+
+.search-select.ui-multiselect .ui-multiselect-arrow {
+	width: 9px;
+	height: 7px;
+	border: none;
+
+	right: 10px;
+	top: 11px;
+	@include sprite($icon-arrow-down-red);
+}
+
+/* drop style */
+div.select.top {}
+div.select.bottom {}
+div.select .ui-multiselect-menu-inner {}
+div.select .ui-multiselect-checkboxes li {}
+div.select .ui-multiselect-checkboxes li:first-child,
+div.select .ui-multiselect-checkboxes li.first {}
+div.select .ui-multiselect-checkboxes li.last {}
+div.select ul label {
+	padding-top:5px;
+	padding-bottom:5px;
+}
+div.select ul label.ui-state-hover,
+div.select ul label.ui-state-active {
+	background:#ECECEC;
+	color:#000;
+}
+div.select ul label.ui-state-active {}
+
+// /* round style */
+// button.select .ui-multiselect-inner,
+// div.select .ui-multiselect-menu-inner,
+// div.select .ui-multiselect-checkboxes,
+// div.select .ui-multiselect-checkboxes li.first.last,
+// div.select .ui-multiselect-checkboxes li.first.last label {
+// 	border-radius:5px; /*main css (.radius-5)*/
+// }
+// div.select .ui-multiselect-checkboxes li:first-child,
+// div.select .ui-multiselect-checkboxes li:first-child label,
+// div.select .ui-multiselect-checkboxes li.first,
+// div.select .ui-multiselect-checkboxes li.first label {
+// 	border-radius:5px 5px 0 0; /*main css (..radius-top-5)*/
+// }
+// div.select .ui-multiselect-checkboxes li.last,
+// div.select .ui-multiselect-checkboxes li.last label {
+// 	border-radius:0 0 5px 5px; /*main css (..radius-bot-5)*/
+// }
+
+// /* widget corner */
+// div.select .corner-ui-multiselect {}
+// div.select.top .corner-ui-multiselect {}
+// div.select.bottom .corner-ui-multiselect {}
+
+/* widget scrollpane */
+div.select .ui-multiselect-wrap-scrollpane {}
+div.select .ui-multiselect-scrollpane ul {
+	height:auto;
+	max-height:none;
+	overflow:hidden !important;
+}
+div.select .ui-multiselect-scrollpane {
+	width: 100%;
+	max-height: 180px;
+	overflow: auto;	
+}
+div.select .ui-multiselect-scrollpane .jspPane {
+	width:auto !important;
+	right:0 !important;
+	left:0;
+}
+div.select .ui-multiselect-scrollpane.jspScrollable .jspPane {
+	right:10px !important;
+}
+div.select .ui-multiselect-scrollpane .jspTrack {
+	background:none;
+}
+div.select .ui-multiselect-scrollpane .jspDrag {
+	background:#f47933;
+	width:5px;
+}
+div.select .ui-multiselect-scrollpane .jspVerticalBar {
+	background:#d1d1d1;
+	width:5px;
+	right:5px;
+}
+/*----------- MULTISELECT END -----------*/
+
+/*----------- SCROLLPANE -----------*/
+/* core */
+.jspContainer{
+	overflow: hidden;
+	position: relative;
+}
+.jspPane{
+	position: absolute;
+}
+.jspVerticalBar{
+	position: absolute;
+	top: 0;
+	right: 6px;
+	width: 1px;
+	height: 100%;
+	background: red;
+}
+.jspHorizontalBar{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 16px;
+	background: red;
+}
+.jspVerticalBar *,
+.jspHorizontalBar *{
+	margin: 0;
+	padding: 0;
+}
+.jspCap{
+	display: none !important;
+}
+.jspHorizontalBar .jspCap{
+	float: left;
+}
+.jspTrack{
+	background: #62c7f3;
+	position: relative;
+}
+.jspDrag{
+	width: 6px;
+	background: #fff;
+	border-radius: 3px;
+	position: relative;
+	top: 0;
+	left: -2px;
+	cursor: pointer;
+	transition: background .2s;
+
+	&:hover,
+	&:active {
+		// background: $red-darken;
+		background: $pink;
+	}
+}
+.jspHorizontalBar .jspTrack,
+.jspHorizontalBar .jspDrag{
+	float: left;
+	height: 100%;
+}
+.jspArrow{
+	background: #50506d;
+	text-indent: -20000px;
+	display: block;
+	cursor: pointer;
+}
+.jspArrow.jspDisabled{
+	cursor: default;
+	background: #80808d;
+}
+.jspVerticalBar .jspArrow{
+	height: 16px;
+}
+.jspHorizontalBar .jspArrow{
+	width: 16px;
+	float: left;
+	height: 100%;
+}
+.jspVerticalBar .jspArrow:focus{
+	outline: none;
+}
+
+.jspCorner{
+	background: #eeeef4;
+	float: left;
+	height: 100%;
+}
+/* Yuk! CSS Hack for IE6 3 pixel bug :( */
+* html .jspCorner {
+	margin: 0 -3px 0 0;
+}
+/* core end */
+
+// /* custom */
+// .scrollpane{
+// 	width: 100%;
+// 	height:100%;
+// 	overflow: auto;
+// }
+// .scrollpane .jspPane{
+// 	width:auto !important;
+// 	right:0 !important;
+// 	left:0;
+// }
+// .scrollpane.jspScrollable .jspPane{
+// 	right:55px !important;
+// }
+// .scrollpane .jspDrag{
+// 	width:5px;
+// 	height:20px;
+// 	margin-left:-10px;
+// 	background:#fff;
+// 	left:50%;
+// }
+// .scrollpane .jspVerticalBar{
+// 	background:none;
+// 	width:31px;
+// }
+// .scrollpane .jspCap{
+// 	display:none !important;
+// 	width:10px;
+// 	height:10px;
+// }
+// .scrollpane .jspTrack{
+// 	background: #62c7f3;
+// 	width: 1px;
+// 	margin: 0 auto;
+// }
+// /* custom end */
+/*----------- SCROLLPANE END -----------*/
+
+
+
+
+
+
+
+
+
+
